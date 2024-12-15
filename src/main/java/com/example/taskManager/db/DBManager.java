@@ -40,4 +40,22 @@ public class DBManager {
 
         tasks.add(task);
     }
+
+    public Task getTaskById(Long id) {
+        return tasks.stream().filter(t -> t.getId().equals(id)).findFirst().orElse(null);
+    }
+
+    public void deleteTask(Long id) {
+        tasks.removeIf(t -> t.getId().equals(id));
+    }
+
+    public void updateTask(Long id, String name, String description, LocalDate date, boolean completed) {
+        Task t = getTaskById(id);
+        if (t != null) {
+            t.setName(name);
+            t.setDescription(description);
+            t.setDeadlineDate(date);
+            t.setCompleted(completed);
+        }
+    }
 }
